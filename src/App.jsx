@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import Header from "./components/Header"
 import Button from "./components/Button"
+import { formatearDinero } from './helpers';
 
 // Componente de React
 function App() {
 
   //funcion y lo que modifica 
   const [cantidad, setCantidad] = useState(10000);
+  const [meses, setMeses] = useState(6);
 
   const MIN = 0;
   const MAX = 20000;
@@ -47,7 +49,7 @@ function App() {
         <Button
           operador='-'
           fn={handleClickDecremento}
-          />
+        />
         <Button
           operador='+'
           fn={handleClickIncremento}
@@ -64,7 +66,22 @@ function App() {
         step={STEP}
         value={cantidad}
       />
-      <p className='text-center my-10 text-5xl font-extrabold text-indigo-600'>{cantidad}</p>
+      <p className='text-center my-10 text-5xl font-extrabold text-indigo-600'>
+        {formatearDinero(cantidad)}</p>
+
+      <h2 className='text-2xl font-extrabold text-gray-500 text-center'>
+        Elige un <span className='text-indigo-600'>Plazo</span> a pagar
+      </h2>
+
+      <select
+        className='mt-5 w-full p-2 bg-white border border-gray-300 rounded-lg text-center text-xl font-bold text-gray-500'
+        value={meses}
+        onChange={e=> setMeses(+e.target.value)}
+      >
+        <option value="6">6 Meses</option>
+        <option value="12">12 Meses</option>
+        <option value="24">24 Meses</option>
+      </select>
     </div>
 
   )
